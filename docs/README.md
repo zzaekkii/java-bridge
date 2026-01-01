@@ -1,5 +1,5 @@
 [![우아한테크코스](https://github.com/user-attachments/assets/488b7a20-5b07-462e-afdb-71aac9e68b64)](https://www.woowacourse.io/)
-# java-bridge
+# java-steps
 
 # 📌 요구사항 요약
 랜덤으로 위/아래 하나만 건널 수 있는 다리를 만들고,
@@ -16,7 +16,7 @@
 7. 게임을 끝나면(성공/실패 모두) `최종 게임 결과(다리 상태)`와 `게임 성공 여부`, `총 시도한 횟수`를 출력함
 
 ## ⭐ 특이 사항
-- [ ] 랜덤으로 0이 나오면 위(U), 1이 나오면 아래(D)
+- [x] 랜덤으로 0이 나오면 위(U), 1이 나오면 아래(D)
 - [ ] 재시작해도 처음에 만든 다리를 활용함
   <br/>
 
@@ -40,8 +40,9 @@
 - [x] 3 이상 20 이하의 숫자가 아닌 경우 (음수, 0 포함)
 ### c. 다리 생성
 - 조건
-- [ ] 제공된 `BridgeMaker` 클래스를 활용해 구현 (필드 및 메서드 변경 불가)
-- [ ] Random 값 추출은 제공된 `bridge.domain.BridgeRandomNumberGenerator`의 `generate()`를 활용
+- [x] `BridgeGame` 내부에 `List<String>` bridge 필드 추가
+- [x] 제공된 `BridgeMaker` 클래스를 활용해 구현 (필드 및 메서드 변경 불가)
+- [x] Random 값 추출은 제공된 `steps.domain.BridgeRandomNumberGenerator`의 `generate()`를 활용
 ## 2. 게임 진행
 - [ ] 각 라운드마다 증가되는 카운트 `BridgeGame`에 필드로 추가 (default: 1)
 ### a. 이동할 칸 입력 받기
