@@ -1,12 +1,15 @@
 package bridge.controller;
 
-import bridge.domain.*;
+import bridge.domain.BridgeGame;
+import bridge.domain.BridgeMaker;
+import bridge.domain.BridgeNumberGenerator;
 import bridge.view.InputView;
 import bridge.view.OutputView;
 
-import java.util.List;
-
 public class BridgeController {
+
+    private static final boolean KEEP_GOING = false;
+    private static final boolean LOSE = true;
 
     private final InputView inputView;
     private final OutputView outputView;
@@ -23,12 +26,23 @@ public class BridgeController {
         BridgeGame bridgeGame = gameStart();
 
         /// 게임 진행
+        int round = 0;
         while (!bridgeGame.hasWon()) {
             // 이동할 칸 입력 받기
             String command = requestCommand();
 
-
+            // 이동 가능한지 확인
+            crossBridge(bridgeGame, round, command);
         }
+    }
+
+    private void crossBridge(BridgeGame bridgeGame, int round, String command) {
+        if (bridgeGame.move(round, command)) {
+            // 계속 진행
+            printBridge(round, KEEP_GOING);
+            return;
+        }
+        printBridge(round, LOSE);
     }
 
     private BridgeGame gameStart() {
