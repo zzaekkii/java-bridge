@@ -40,7 +40,7 @@
 ### c. 다리 생성
 - 조건
 - [ ] 제공된 `BridgeMaker` 클래스를 활용해 구현 (필드 및 메서드 변경 불가)
-- [ ] Random 값 추출은 제공된 `bridge.BridgeRandomNumberGenerator`의 `generate()`를 활용
+- [ ] Random 값 추출은 제공된 `bridge.domain.BridgeRandomNumberGenerator`의 `generate()`를 활용
 ## 2. 게임 진행
 - [ ] 각 라운드마다 증가되는 카운트 `BridgeGame`에 필드로 추가 (default: 1)
 ### a. 이동할 칸 입력 받기
