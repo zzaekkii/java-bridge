@@ -6,6 +6,10 @@ import bridge.domain.BridgeNumberGenerator;
 import bridge.view.InputView;
 import bridge.view.OutputView;
 
+import java.util.List;
+
+import static bridge.domain.Position.*;
+
 public class BridgeController {
 
     private static final boolean KEEP_GOING = false;
@@ -31,7 +35,7 @@ public class BridgeController {
             // 이동할 칸 입력 받기
             String command = requestCommand();
 
-            // 이동 가능한지 확인
+            // 이동하고 결과 출력
             crossBridge(bridgeGame, round, command);
         }
     }
@@ -39,10 +43,10 @@ public class BridgeController {
     private void crossBridge(BridgeGame bridgeGame, int round, String command) {
         if (bridgeGame.move(round, command)) {
             // 계속 진행
-            printBridge(round, KEEP_GOING);
+            printBridge(bridgeGame.getBridge(), round, KEEP_GOING);
             return;
         }
-        printBridge(round, LOSE);
+        printBridge(bridgeGame.getBridge(), round, LOSE);
     }
 
     private BridgeGame gameStart() {
@@ -100,11 +104,11 @@ public class BridgeController {
      * 실패가 아니면 초기 다리 상태랑 같은 위치에 'O'만 출력하면 됨
      * 실패 했으면 마지막 상태는 반대 위치에 'X' 출력
      */
-    private void printBridge(int round, boolean failure) {
+    private void printBridge(List<String> bridge, int round, boolean fail) {
         // 위쪽 출력
-        outputView.printMap();
+        outputView.printMap(UP, bridge, round, fail);
 
         // 아래쪽 출력
-        outputView.printMap();
+        outputView.printMap(DOWN, bridge, round, fail);
     }
 }
