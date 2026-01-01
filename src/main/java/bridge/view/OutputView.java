@@ -34,4 +34,13 @@ public class OutputView {
     public void printErrorMessage(String message) {
         System.out.println(ERROR_MESSAGE_PREFIX + message);
     }
+
+    /**
+     * 필요치 않을 수도 있는데
+     * 요구사항에서 예시 출력을 보면,
+     * 다리 길이를 입력받고 나서 빈 줄 하나를 출력함
+     */
+    public void printGap() {
+        System.out.println();
+    }
 }
