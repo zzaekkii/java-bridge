@@ -7,7 +7,10 @@ import camp.nextstep.edu.missionutils.Console;
  */
 public class InputView {
 
-    private static final String[] COMMANDS = {"D", "U"};
+    private static final String[] MOVE_COMMANDS = {"D", "U"};
+    private static final String[] RETRY_COMMANDS = {"R", "Q"};
+    private static final String RETRY = "R";
+
 
     /**
      * 다리의 길이를 입력받는다.
@@ -32,6 +35,44 @@ public class InputView {
         }
     }
 
+    /**
+     * 사용자가 이동할 칸을 입력받는다.
+     */
+    public String readMoving() {
+        String input = Console.readLine();
+
+        nullCheck(input);
+
+        if (!input.matches("[A-Z]")) {
+            throw new IllegalArgumentException("형식이 맞지 않습니다.");
+        }
+
+        if (checkCommand(input, MOVE_COMMANDS)) {
+            throw new IllegalArgumentException("U 또는 D만 입력 가능합니다.");
+        }
+
+        return input;
+    }
+
+    /**
+     * 사용자가 게임을 다시 시도할지 종료할지 여부를 입력받는다.
+     */
+    public boolean readGameCommand() {
+        String input = Console.readLine();
+
+        nullCheck(input);
+
+        if (!input.matches("[A-Z]")) {
+            throw new IllegalArgumentException("형식이 맞지 않습니다.");
+        }
+
+        if (checkCommand(input, RETRY_COMMANDS)) {
+            throw new IllegalArgumentException("R 또는 Q만 입력 가능합니다.");
+        }
+
+        return RETRY.equals(input);
+    }
+
     private static void nullCheck(String input) {
         if (input == null || input.isBlank()) {
             throw new IllegalArgumentException("입력값이 존재하지 않습니다.");
@@ -44,34 +85,8 @@ public class InputView {
         }
     }
 
-    /**
-     * 사용자가 이동할 칸을 입력받는다.
-     */
-    public String readMoving() {
-        return null;
-    }
-
-    /**
-     * 사용자가 게임을 다시 시도할지 종료할지 여부를 입력받는다.
-     */
-    public String readGameCommand() {
-        String input = Console.readLine();
-
-        nullCheck(input);
-
-        if (!input.matches("[A-Z]")) {
-            throw new IllegalArgumentException("형식이 맞지 않습니다.");
-        }
-
-        if (checkCommand(input)) {
-            throw new IllegalArgumentException("U 또는 D만 입력 가능합니다.");
-        }
-
-        return input;
-    }
-
-    private boolean checkCommand(String input) {
-        for (String command: COMMANDS) {
+    private boolean checkCommand(String input, String[] commands) {
+        for (String command: commands) {
             if (command.equals(input)) {
                 return true;
             }

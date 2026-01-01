@@ -33,6 +33,10 @@ public class BridgeGame {
         tryCount += 1;
     }
 
+    public void win() {
+        won = true;
+    }
+
     public int getTryCount() {
         return tryCount;
     }

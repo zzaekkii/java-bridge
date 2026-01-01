@@ -30,25 +30,40 @@ public class BridgeController {
         BridgeGame bridgeGame = gameStart();
 
         /// 게임 진행
-        int round = 0;
-        while (!bridgeGame.hasWon()) {
-            // 이동할 칸 입력 받기
-            String command = requestCommand();
-
-            // 이동하고 결과 출력
-            crossBridge(bridgeGame, round, command);
-
-            // 실패
-        }
+        PlayGame(bridgeGame);
     }
 
-    private void crossBridge(BridgeGame bridgeGame, int round, String command) {
-        if (bridgeGame.move(round, command)) {
-            // 계속 진행
-            printBridge(bridgeGame.getBridge(), round, KEEP_GOING);
-            return;
+    private void PlayGame(BridgeGame bridgeGame) {
+        int round = 0;
+        while (true) {
+            // 이동할 칸 입력 받기
+            String moveCommand = requestMoveCommand();
+
+            // 이동하고 결과 출력, 실패하면 재시도/종료
+            if (!crossBridge(bridgeGame, round, moveCommand)) {
+                // 재시도 여부 입력 받기
+                boolean wannaRetry = requestWannaRetry();
+
+                // 종료
+                if (!wannaRetry) {
+                    break;
+                }
+
+                // 시도 횟수 증가
+                bridgeGame.retry();
+
+                // 라운드 초기화
+                round = 0;
+            }
+
+            if (round == (bridgeGame.getBridge().size() + 1)) {
+                bridgeGame.win();
+                break;
+            }
+
+            // 라운드 증가
+            round += 1;
         }
-        printBridge(bridgeGame.getBridge(), round, LOSE);
     }
 
     private BridgeGame gameStart() {
@@ -84,36 +99,51 @@ public class BridgeController {
         }
     }
 
-    private String requestCommand() {
+    private String requestMoveCommand() {
         while (true) {
             // 이동할 칸 입력 요청 문구 출력
             outputView.printCommandRequest();
 
             try {
-                return inputView.readGameCommand();
+                return inputView.readMoving();
             } catch (IllegalArgumentException e) {
                 outputView.printErrorMessage(e.getMessage());
             }
         }
     }
 
-    /**
-     * 현재 라운드 수만큼 진행 상태 출력
-     * 위부터 출력한 뒤, 아래 출력
-     * 시작은 '[ '로 출력
-     * round 전까지 다리 상태에 따라 ' ' 또는 'O' 출력
-     * 마지막 원소가 아니면 뒤에 ' | ' 출력
-     * 끝은 ' ]'로 출력
-     * <p>
-     * X인지 여부는 결국 마지막에서 판단하면 됨
-     * 실패가 아니면 초기 다리 상태랑 같은 위치에 'O'만 출력하면 됨
-     * 실패 했으면 마지막 상태는 반대 위치에 'X' 출력
-     */
+    private boolean crossBridge(BridgeGame bridgeGame, int round, String command) {
+        if (bridgeGame.move(round, command)) {
+            // 계속 진행
+            printBridge(bridgeGame.getBridge(), round, KEEP_GOING);
+            return true;
+        }
+
+        // 게임 실패
+        printBridge(bridgeGame.getBridge(), round, LOSE);
+        return false;
+    }
+
     private void printBridge(List<String> bridge, int round, boolean fail) {
         // 위쪽 출력
         outputView.printMap(UP, bridge, round, fail);
 
         // 아래쪽 출력
         outputView.printMap(DOWN, bridge, round, fail);
+    }
+
+    private boolean requestWannaRetry() {
+        while (true) {
+            // 재시도/종료 의사 물어보는 문구 출력
+            outputView.printRetryRequest();
+
+            try {
+                // 재시도/종료 의사 입력 받기 (내부에서 검증됨)
+                return inputView.readGameCommand();
+
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e.getMessage());
+            }
+        }
     }
 }

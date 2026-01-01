@@ -28,9 +28,9 @@ public class OutputView {
     }
 
     /**
-     * 현재까지 이동한 다리의 상태를 정해진 형식에 맞춰 출력한다.
-     * <p>
-     * 출력을 위해 필요한 메서드의 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
+     * X인지 여부는 결국 마지막에서 판단하면 됨
+     * 실패가 아니면 초기 다리 상태랑 같은 위치에 'O'만 출력하면 됨
+     * 실패 했으면 마지막 상태는 반대 위치에 'X' 출력
      */
     public void printMap(Position position, List<String> bridge, int round, boolean fail) {
         // 다리 시작 표시
@@ -96,5 +96,9 @@ public class OutputView {
 
     public void printCommandRequest() {
         System.out.println("이동할 칸을 선택해주세요. (위: U, 아래: D)");
+    }
+
+    public void printRetryRequest() {
+        System.out.println("게임을 다시 시도할지 여부를 입력해주세요. (재시도: R, 종료: Q)");
     }
 }
