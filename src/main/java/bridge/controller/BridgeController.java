@@ -133,6 +133,9 @@ public class BridgeController {
 
         // 아래쪽 출력
         outputView.printMap(DOWN, bridge, round, fail);
+        
+        // 아래 빈 줄 추가
+        outputView.printGap();
     }
 
     private boolean requestWannaRetry() {

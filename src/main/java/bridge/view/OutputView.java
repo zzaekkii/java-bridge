@@ -49,8 +49,8 @@ public class OutputView {
         // 마지막 상태 표시 (성공인지 아닌지)
         System.out.print(lastStatus(bridge.get(round).equals(position.getValue()), fail));
 
-        // 다리 끝 표시 + 빈 줄 추가
-        System.out.println(END_BRIDGE + "\n");
+        // 다리 끝 표시
+        System.out.println(END_BRIDGE);
     }
 
     // 중간 상태 - `O` 아니면 ` `
