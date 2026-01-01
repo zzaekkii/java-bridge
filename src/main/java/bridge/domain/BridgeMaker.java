@@ -29,7 +29,7 @@ public class BridgeMaker {
     }
 
     private String decidePosition() {
-        if (bridgeNumberGenerator.generate() == 0) {
+        if (bridgeNumberGenerator.generate() == 1) {
             return "U";
         }
         return "D";
