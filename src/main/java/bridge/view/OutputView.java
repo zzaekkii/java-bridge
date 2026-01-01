@@ -93,4 +93,8 @@ public class OutputView {
     public void printGap() {
         System.out.println();
     }
+
+    public void printCommandRequest() {
+        System.out.println("이동할 칸을 선택해주세요. (위: U, 아래: D)");
+    }
 }

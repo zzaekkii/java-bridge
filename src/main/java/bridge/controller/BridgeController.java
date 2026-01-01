@@ -37,6 +37,8 @@ public class BridgeController {
 
             // 이동하고 결과 출력
             crossBridge(bridgeGame, round, command);
+
+            // 실패
         }
     }
 
@@ -83,6 +85,8 @@ public class BridgeController {
     }
 
     private String requestCommand() {
+        outputView.printCommandRequest();
+
         while (true) {
             try {
                 return inputView.readGameCommand();
