@@ -47,7 +47,7 @@ public class InputView {
             throw new IllegalArgumentException("형식이 맞지 않습니다.");
         }
 
-        if (checkCommand(input, MOVE_COMMANDS)) {
+        if (!checkCommand(input, MOVE_COMMANDS)) {
             throw new IllegalArgumentException("U 또는 D만 입력 가능합니다.");
         }
 
@@ -66,7 +66,7 @@ public class InputView {
             throw new IllegalArgumentException("형식이 맞지 않습니다.");
         }
 
-        if (checkCommand(input, RETRY_COMMANDS)) {
+        if (!checkCommand(input, RETRY_COMMANDS)) {
             throw new IllegalArgumentException("R 또는 Q만 입력 가능합니다.");
         }
 
