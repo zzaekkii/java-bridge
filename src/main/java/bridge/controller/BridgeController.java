@@ -33,7 +33,7 @@ public class BridgeController {
         PlayGame(bridgeGame);
 
         // 게임 결과 출력
-        outputView.printFinalMap();
+        outputView.printFinalMapIntro();
         printBridge(bridgeGame.getBridge(), bridgeGame.getRound(), bridgeGame.hasWon());
 
         outputView.printResult(bridgeGame);
