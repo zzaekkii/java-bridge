@@ -36,7 +36,7 @@ public class OutputView {
      * 실패가 아니면 초기 다리 상태랑 같은 위치에 'O'만 출력하면 됨
      * 실패 했으면 마지막 상태는 반대 위치에 'X' 출력
      */
-    public void printMap(Position position, List<String> bridge, int round, boolean fail) {
+    public void printMap(Position position, List<String> bridge, int round, boolean success) {
         // 다리 시작 표시
         System.out.print(BEGIN_BRIDGE);
 
@@ -47,7 +47,7 @@ public class OutputView {
         }
 
         // 마지막 상태 표시 (성공인지 아닌지)
-        System.out.print(lastStatus(bridge.get(round).equals(position.getValue()), fail));
+        System.out.print(lastStatus(bridge.get(round).equals(position.getValue()), success));
 
         // 다리 끝 표시
         System.out.println(END_BRIDGE);
@@ -65,16 +65,16 @@ public class OutputView {
      * 같은 포지션이면 성공인지 실패인지에 따라 `O`, `X`가 나뉨
      * 같은 포지션이 아니라면 ` `
      */
-    private String lastStatus(boolean samePosition, boolean fail) {
+    private String lastStatus(boolean samePosition, boolean success) {
         if (!samePosition) {
             return EMPTY;
         }
 
-        if (fail) {
-            return INCORRECT;
+        if (success) {
+            return CORRECT;
         }
 
-        return CORRECT;
+        return INCORRECT;
     }
 
     /**

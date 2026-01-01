@@ -12,8 +12,8 @@ import static bridge.domain.Position.*;
 
 public class BridgeController {
 
-    private static final boolean KEEP_GOING = false;
-    private static final boolean LOSE = true;
+    private static final boolean SUCCESS = true;
+    private static final boolean LOSE = false;
 
     private final InputView inputView;
     private final OutputView outputView;
@@ -118,7 +118,7 @@ public class BridgeController {
     private boolean crossBridge(BridgeGame bridgeGame, String command) {
         if (bridgeGame.move(command)) {
             // 계속 진행
-            printBridge(bridgeGame.getBridge(), bridgeGame.getRound(), KEEP_GOING);
+            printBridge(bridgeGame.getBridge(), bridgeGame.getRound(), SUCCESS);
             return true;
         }
 
@@ -127,12 +127,12 @@ public class BridgeController {
         return false;
     }
 
-    private void printBridge(List<String> bridge, int round, boolean fail) {
+    private void printBridge(List<String> bridge, int round, boolean success) {
         // 위쪽 출력
-        outputView.printMap(UP, bridge, round, fail);
+        outputView.printMap(UP, bridge, round, success);
 
         // 아래쪽 출력
-        outputView.printMap(DOWN, bridge, round, fail);
+        outputView.printMap(DOWN, bridge, round, success);
         
         // 아래 빈 줄 추가
         outputView.printGap();
