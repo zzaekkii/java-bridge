@@ -8,6 +8,7 @@ import java.util.List;
 public class BridgeGame {
     private final List<String> bridge;
 
+    private int round = 0;
     private int tryCount = 1;
     private boolean won = false;
 
@@ -20,7 +21,7 @@ public class BridgeGame {
      * <p>
      * 이동을 위해 필요한 메서드의 반환 타입(return type), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
      */
-    public boolean move(int round, String command) {
+    public boolean move(String command) {
         return bridge.get(round).equals(command);
     }
 
@@ -31,10 +32,19 @@ public class BridgeGame {
      */
     public void retry() {
         tryCount += 1;
+        round = 0;
     }
 
     public void win() {
         won = true;
+    }
+
+    public void nextRound() {
+        round += 1;
+    }
+
+    public boolean isEnd() {
+        return (round == (bridge.size() - 1));
     }
 
     public int getTryCount() {
@@ -43,6 +53,10 @@ public class BridgeGame {
 
     public List<String> getBridge() {
         return bridge;
+    }
+
+    public int getRound() {
+        return round;
     }
 
     public boolean hasWon() {

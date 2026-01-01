@@ -1,5 +1,6 @@
 package bridge.view;
 
+import bridge.domain.BridgeGame;
 import bridge.domain.Position;
 
 import java.util.List;
@@ -16,6 +17,9 @@ public class OutputView {
     private static final String CORRECT = "O";
     private static final String INCORRECT = "X";
     private static final String EMPTY = " ";
+
+    private static final String GAME_CLEAR = "성공";
+    private static final String GAME_OVER = "실패";
 
     private static final String ERROR_MESSAGE_PREFIX = "[ERROR] ";
 
@@ -78,7 +82,8 @@ public class OutputView {
      * <p>
      * 출력을 위해 필요한 메서드의 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
      */
-    public void printResult() {
+    public void printFinalMap() {
+        System.out.println("최종 게임 결과");
     }
 
     public void printErrorMessage(String message) {
@@ -100,5 +105,17 @@ public class OutputView {
 
     public void printRetryRequest() {
         System.out.println("게임을 다시 시도할지 여부를 입력해주세요. (재시도: R, 종료: Q)");
+    }
+
+    public void printResult(BridgeGame bridgeGame) {
+        System.out.println("게임 성공 여부: " + gameResult(bridgeGame.hasWon()));
+        System.out.println("총 시도한 횟수:" + bridgeGame.getTryCount());
+    }
+
+    private String gameResult(boolean gameClear) {
+        if (gameClear) {
+            return GAME_CLEAR;
+        }
+        return GAME_OVER;
     }
 }

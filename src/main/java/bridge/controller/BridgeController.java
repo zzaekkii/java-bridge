@@ -31,16 +31,21 @@ public class BridgeController {
 
         /// 게임 진행
         PlayGame(bridgeGame);
+
+        // 게임 결과 출력
+        outputView.printFinalMap();
+        printBridge(bridgeGame.getBridge(), bridgeGame.getRound(), bridgeGame.hasWon());
+
+        outputView.printResult(bridgeGame);
     }
 
     private void PlayGame(BridgeGame bridgeGame) {
-        int round = 0;
         while (true) {
             // 이동할 칸 입력 받기
             String moveCommand = requestMoveCommand();
 
             // 이동하고 결과 출력, 실패하면 재시도/종료
-            if (!crossBridge(bridgeGame, round, moveCommand)) {
+            if (!crossBridge(bridgeGame, moveCommand)) {
                 // 재시도 여부 입력 받기
                 boolean wannaRetry = requestWannaRetry();
 
@@ -49,20 +54,18 @@ public class BridgeController {
                     break;
                 }
 
-                // 시도 횟수 증가
+                // 시도 횟수 증가 및 라운드 초기화
                 bridgeGame.retry();
-
-                // 라운드 초기화
-                round = 0;
             }
 
-            if (round == (bridgeGame.getBridge().size() + 1)) {
+            // 게임 끝났는지 확인
+            if (bridgeGame.isEnd()) {
                 bridgeGame.win();
                 break;
             }
 
             // 라운드 증가
-            round += 1;
+            bridgeGame.nextRound();
         }
     }
 
@@ -112,15 +115,15 @@ public class BridgeController {
         }
     }
 
-    private boolean crossBridge(BridgeGame bridgeGame, int round, String command) {
-        if (bridgeGame.move(round, command)) {
+    private boolean crossBridge(BridgeGame bridgeGame, String command) {
+        if (bridgeGame.move(command)) {
             // 계속 진행
-            printBridge(bridgeGame.getBridge(), round, KEEP_GOING);
+            printBridge(bridgeGame.getBridge(), bridgeGame.getRound(), KEEP_GOING);
             return true;
         }
 
         // 게임 실패
-        printBridge(bridgeGame.getBridge(), round, LOSE);
+        printBridge(bridgeGame.getBridge(), bridgeGame.getRound(), LOSE);
         return false;
     }
 
