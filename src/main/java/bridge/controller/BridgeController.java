@@ -85,9 +85,10 @@ public class BridgeController {
     }
 
     private String requestCommand() {
-        outputView.printCommandRequest();
-
         while (true) {
+            // 이동할 칸 입력 요청 문구 출력
+            outputView.printCommandRequest();
+
             try {
                 return inputView.readGameCommand();
             } catch (IllegalArgumentException e) {
