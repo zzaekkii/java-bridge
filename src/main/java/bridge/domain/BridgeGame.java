@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class BridgeGame {
     private final List<String> bridge;
-    private int round = 1;
+    private int tryCount = 1;
     private boolean won = false;
 
     public boolean hasWon() {
@@ -32,6 +32,6 @@ public class BridgeGame {
      * 재시작을 위해 필요한 메서드의 반환 타입(return type), 인자(parameter)는 자유롭게 추가하거나 변경할 수 있다.
      */
     public void retry() {
-        round += 1;
+        tryCount += 1;
     }
 }
