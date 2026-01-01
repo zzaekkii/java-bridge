@@ -26,7 +26,7 @@
 - [ ] `BridgeGame`에서 `InputView` 및 `OutputView` 사용 금지
 ## 1. 게임 세팅
 ### a. 게임 시작 문구 출력
-- [ ] 제공된 `OutputView`로 시작 문구 출력
+- [x] 제공된 `OutputView`로 시작 문구 출력
 ### b. 다리 길이 입력 받기
 - 조건
 - [ ] 제공된 `InputView` 클래스를 활용

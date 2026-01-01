@@ -14,6 +14,10 @@ public class BridgeController {
     }
 
     public void run() {
+        // 게임 시작
+        // 게임 시작 문구 출력
+        outputView.printGameStart();
+
 
     }
 }
