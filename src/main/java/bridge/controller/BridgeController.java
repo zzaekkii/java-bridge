@@ -41,30 +41,21 @@ public class BridgeController {
 
     private void PlayGame(BridgeGame bridgeGame) {
         while (true) {
-            // 이동할 칸 입력 받기
             String moveCommand = requestMoveCommand();
 
             // 이동하고 결과 출력, 실패하면 재시도/종료
             if (!crossBridge(bridgeGame, moveCommand)) {
-                // 재시도 여부 입력 받기
-                boolean wannaRetry = requestWannaRetry();
-
-                // 종료
-                if (!wannaRetry) {
+                if (!requestWannaRetry()) {
                     break;
                 }
-
-                // 시도 횟수 증가 및 라운드 초기화
                 bridgeGame.retry();
             }
 
-            // 게임 끝났는지 확인
             if (bridgeGame.isEnd()) {
                 bridgeGame.win();
                 break;
             }
 
-            // 라운드 증가
             bridgeGame.nextRound();
         }
     }
@@ -83,18 +74,12 @@ public class BridgeController {
     }
 
     private int requestBridgeSize() {
-        int bridgeSize;
         while (true) {
-            // 다리 길이 입력 요청 문구 출력
             outputView.printBridgeSizeRequest();
 
             try {
-                // 다리 길이 입력 받기 (내부에서 검증됨)
-                bridgeSize = inputView.readBridgeSize();
-
-                // 빈 줄 한 줄 출력
+                int bridgeSize = inputView.readBridgeSize();
                 outputView.printGap();
-
                 return bridgeSize;
             } catch (IllegalArgumentException e) {
                 outputView.printErrorMessage(e.getMessage());
@@ -133,7 +118,7 @@ public class BridgeController {
 
         // 아래쪽 출력
         outputView.printMap(DOWN, bridge, round, success);
-        
+
         // 아래 빈 줄 추가
         outputView.printGap();
     }
@@ -146,7 +131,6 @@ public class BridgeController {
             try {
                 // 재시도/종료 의사 입력 받기 (내부에서 검증됨)
                 return inputView.readGameCommand();
-
             } catch (IllegalArgumentException e) {
                 outputView.printErrorMessage(e.getMessage());
             }
