@@ -19,7 +19,19 @@ public class BridgeController {
     }
 
     public void run() {
-        // 게임 시작
+        /// 게임 시작
+        BridgeGame bridgeGame = gameStart();
+
+        /// 게임 진행
+        while (!bridgeGame.hasWon()) {
+            // 이동할 칸 입력 받기
+            String command = requestCommand();
+
+
+        }
+    }
+
+    private BridgeGame gameStart() {
         // 게임 시작 문구 출력
         outputView.printGameStart();
 
@@ -27,7 +39,7 @@ public class BridgeController {
         int bridgeSize = requestBridgeSize();
 
         // 다리 생성
-        BridgeGame bridgeGame = new BridgeGame(
+        return new BridgeGame(
             new BridgeMaker(bridgeNumberGenerator).makeBridge(bridgeSize)
         );
     }
@@ -52,6 +64,16 @@ public class BridgeController {
         }
     }
 
+    private String requestCommand() {
+        while (true) {
+            try {
+                return inputView.readGameCommand();
+            } catch (IllegalArgumentException e) {
+                outputView.printErrorMessage(e.getMessage());
+            }
+        }
+    }
+
     /**
      * 현재 라운드 수만큼 진행 상태 출력
      * 위부터 출력한 뒤, 아래 출력
@@ -64,7 +86,7 @@ public class BridgeController {
      * 실패가 아니면 초기 다리 상태랑 같은 위치에 'O'만 출력하면 됨
      * 실패 했으면 마지막 상태는 반대 위치에 'X' 출력
      */
-    private void printBridge(int round, List<Step> progress, boolean failure) {
+    private void printBridge(int round, boolean failure) {
         // 위쪽 출력
         outputView.printMap();
 
